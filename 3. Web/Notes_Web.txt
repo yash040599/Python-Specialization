@@ -1,0 +1,91 @@
+Regular Expression
+
+import re
+
+hand = open('mbox-short.txt')
+for line in hand:
+	line =line.rstrip()
+	if re.search('From:',line):  # just like str.find()
+		print(line)
+# can use re.search('^From:',line) that will work as str.startswith()
+
+^X.*:
+above means-- (^)Starts with X; (.*) followed by any number of characters; (:) followed by colon
+< . > Match any character
+< * > Many times (0 or more times)
+< + > Many times (1 or more times)
+< ? > Don't be greedy stop when find once
+
+^X-\S+:
+above means-- (^)Starts with X- ; (\S) followed by any non white space character;(+) >=1 times ; (:) followed by colon
+
+[0-9]+  --  one or more numbers (0 to 9)
+
+import re
+x = ' My 2 favourite numbers are 69 and 96'
+y=re.findall('[0-9]+',x)
+print(y)
+>> ['2','69','96']
+
+\S+@\S+ -- gives an email id
+' ^From (\S+@\S+)' search the whole command but saves only the bracketed value
+
+[^XYZ] -- match except XYZ
+
+
+Code below gives count and sum of numbers in a file :
+
+import re
+fname = input('Enter File name :')
+handle = open(fname)
+
+sum=0
+count = 0
+
+for line in handle:	
+	f = re.findall('[0-9]+',line)	# f will be a list
+	for num in f:		
+		if int(num) >= 0:			
+			count = count + 1
+			sum = sum + int(num)
+		
+print('There are',count,'values with a sum =',sum)
+
+NETWORK
+
+import socket
+mysock = socket.socket(socket.AF_INET,  socket.SOCK_STREAM)
+mysock.connect( ( 'data.pr4e.org' , 80 ) )
+
+HTTP: get
+
+ASCII
+print(ord('H')) >> 72
+print(ord('\n')) >> 10
+
+urllib
+
+import urllib.request, urllib.parse,urllib.error
+
+fhand = urllib.request.urlopen('http://   ')
+for line in fhand:
+	print( line.decode().strip() )
+
+XML type of storing data just like json, it has html type tags  (eXtensible Markup Language (XML))
+XML Schema Contract
+one of the schema from W3C - XSD
+
+import xml.etree.ElementTree as ET
+
+data = '''
+<person>
+  <name>Chuck</name>
+  <phone type="intl">
+    +1 734 303 4456
+  </phone>
+  <email hide="yes" />
+</person>'''
+
+tree = ET.fromstring(data)
+print('Name:', tree.find('name').text)
+print('Attr:', tree.find('email').get('hide'))
